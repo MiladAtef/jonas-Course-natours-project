@@ -1,0 +1,60 @@
+.header {
+	background-image: linear-gradient(
+			to right bottom,
+			rgba($color-primary-light, 0.8),
+			rgba($color-primary-dark, 0.8)
+		),
+		url('../images/hero-small.jpg');
+	background-size: cover;
+	background-position: top;
+	height: 85vh; //the gradient should always be before the url image
+	position: relative;
+
+	//any values to the supports property in the parenthesis ,does not matter (i put 0 0)
+	@supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+		-webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+		clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+		height: 95vh;
+	}
+
+	@media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
+		only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+		only screen and (min-width: 125em) {
+		background-image: linear-gradient(
+				to right bottom,
+				rgba($color-primary-light, 0.8),
+				rgba($color-primary-dark, 0.8)
+			),
+			url('../images/hero.jpg');
+	}
+	@include respond(tab-port) {
+		-webkit-clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+		clip-path: polygon(0 0, 100% 0, 100% 80vh, 0 100%);
+	}
+	@include respond(phone) {
+		height: 75vh;
+		-webkit-clip-path: polygon(0 0, 100% 0, 100% 65vh, 0 100%);
+		clip-path: polygon(0 0, 100% 0, 100% 65vh, 0 100%);
+	}
+
+	&__logo-box {
+		position: absolute;
+		top: 4rem;
+		left: 4rem;
+	}
+	&__logo {
+		height: 3.5rem;
+	}
+	//this positioning and transform to make the div in the center
+	&__text-box {
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+
+		@include respond(phone) {
+			top: 50%;
+		}
+	}
+}

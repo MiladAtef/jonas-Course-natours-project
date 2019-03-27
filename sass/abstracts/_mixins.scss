@@ -1,0 +1,63 @@
+@mixin clearfix {
+	&::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+@mixin positionCenter {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+// MEDIA QUERY MANAGER
+
+/*
+   we will work with (em) not (px) ----> (em equals 16px)
+
+   0-600px       [0--37.5em      ]  ===> mobile screen
+   600px-900px   [37.5em--56.25em]  ===> tablet portrait
+   900px-1200px  [56.25em--75em  ]  ===> tablet landscape
+   1200px-1800px [75em--112.5em  ]  ===>normal desktop screen [normal code that have been written]
+   1800px++      [112.5em++      ]  ===> big desktop screen
+
+   $Breakpoint argument choices:
+ -- phone
+ -- tab-port
+ -- tab-land
+ -- big-desktop
+
+  the order of writing the media queries ==>
+   base + typography > general layout + grid >page layout > components 
+
+*/
+// the media will only apply on screens (not on print or something else)
+@mixin respond($breakpoint) {
+	@if $breakpoint == phone {
+		//600px
+		@media only screen and (max-width: 37.5em) {
+			@content;
+		}
+	}
+	@if $breakpoint == tab-port {
+		//900px
+		@media only screen and (max-width: 56.25em) {
+			@content;
+		}
+	}
+	@if $breakpoint == tab-land {
+		//1200px
+		@media only screen and (max-width: 75em) {
+			@content;
+		}
+	}
+	@if $breakpoint == big-desktop {
+		//1800px
+		@media only screen and (min-width: 112.5em) {
+			@content;
+		}
+	}
+}
